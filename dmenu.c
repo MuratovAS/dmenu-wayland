@@ -343,13 +343,17 @@ uint32_t parse_color(char *str) {
 
 	size_t len = strnlen(str, BUFSIZ);
 
-	if ((len != 7 && len != 9) || str[0] != '#')
-		eprintf("Color format must be '#rrggbb[aa]'\n");
-
-	uint32_t _val = strtol(&str[1], NULL, 16);
+	if (!((len == 7 || len == 8 || len == 9 || len == 10) && (str[0] == '#' || str[1] == 'x')))
+		eprintf("Color format must be '#RRGGBB[AA] or 0xRRGGBB[AA]'\n");
+	
+	uint32_t _val;
+	if (len == 10 || len == 8)
+		_val = strtol(&str[2], NULL, 16);
+	else
+		_val = strtol(&str[1], NULL, 16);
 
 	uint32_t color = 0x000000ff;
-	if (len == 9) /* Alpha specified */
+	if (len == 9 || len == 10) /* Alpha specified */
 		color = _val;
 	else /* No alpha specified, assume full opacity */
 		color = (_val << 8) + 0xff;
@@ -602,7 +606,7 @@ usage(void) {
     printf("  -r,  --return-early               return as soon as a single match is found\n");
     printf("  -fn, --font-name FONT             font or font set to be used\n");
     printf("  -nb, --normal-background COLOR    normal background color\n");
-    printf("                                      #RRGGBB and #RRGGBBAA supported\n");
+    printf("                                      #RRGGBB and #RRGGBBAA and 0xRRGGBB and 0xRRGGBBAA supported\n");
     printf("  -nf, --normal-foreground COLOR    normal foreground color\n");
     printf("  -sb, --selected-background COLOR  selected background color\n");
     printf("  -sf, --selected-foreground COLOR  selected foreground color\n");

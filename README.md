@@ -1,3 +1,8 @@
+# This is a fork of [nyyManni/dmenu-wayland](https://github.com/nyyManni/dmenu-wayland)  
+Things I changed:
+1. Add support hex color
+
+
 # dmenu-wl - dynamic menu
 dmenu-wl is an efficient dynamic menu for wayland (wlroots).
 

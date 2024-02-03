@@ -1,7 +1,8 @@
 # This is a fork of [nyyManni/dmenu-wayland](https://github.com/nyyManni/dmenu-wayland)  
 Things I changed:
 1. Add support hex color
-
+2. If there is no selected monitor, the menu is displayed on monitor 0
+3. Before setting through theme.h
 
 # dmenu-wl - dynamic menu
 dmenu-wl is an efficient dynamic menu for wayland (wlroots).

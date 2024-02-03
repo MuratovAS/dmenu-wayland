@@ -1,3 +1,5 @@
+#include "../theme.h"
+
 /* See LICENSE file for copyright and license details. */
 #include <ctype.h>
 #include <stdbool.h>
@@ -42,16 +44,16 @@ struct {
 
 const char *progname;
 
-static uint32_t color_bg = 0x222222ff;
-static uint32_t color_fg = 0xbbbbbbff;
-static uint32_t color_input_bg = 0x222222ff;
-static uint32_t color_input_fg = 0xbbbbbbff;
-static uint32_t color_prompt_bg = 0x005577ff;
-static uint32_t color_prompt_fg = 0xeeeeeeff;
-static uint32_t color_selected_bg = 0x005577ff;
-static uint32_t color_selected_fg = 0xeeeeeeff;
+static uint32_t color_bg = _inactiveBgColor;
+static uint32_t color_fg = _inactiveTextColor;
+static uint32_t color_input_bg = _inactiveBgColor;
+static uint32_t color_input_fg = _inactiveTextColor;
+static uint32_t color_prompt_bg = _activeBgColor;
+static uint32_t color_prompt_fg = _activeTextColor;
+static uint32_t color_selected_bg = _activeBgColor;
+static uint32_t color_selected_fg = _activeTextColor;
 
-static int32_t panel_height = 20;
+static int32_t panel_height = 30;
 
 static void appenditem(Item *item, Item **list, Item **last);
 static char *fstrstr(const char *s, const char *sub);
@@ -72,17 +74,17 @@ static int itemcount = 0;
 static int lines = 0;
 static int timeout = 3;
 static size_t cursor = 0;
-static const char *prompt = NULL;
+static const char *prompt = "RUN";
 static bool message = false;
 static bool nostdin = false;
 static bool returnearly = false;
-static bool show_in_bottom = false;
+static bool show_in_bottom = true;
 static TextPosition messageposition = LEFT;
 static Item *items = NULL;
 static Item *matches, *sel;
 static Item *prev, *curr, *next;
 static Item *leftmost, *rightmost;
-static char *font = "Mono";
+static char *font = _font;
 
 static int (*fstrncmp)(const char *, const char *, size_t) = strncmp;
 

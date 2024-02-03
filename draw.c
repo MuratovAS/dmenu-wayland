@@ -546,7 +546,7 @@ void dmenu_init_panel(struct dmenu_panel *panel, int32_t height, bool bottom) {
 
 	panel->surface.surface = wl_compositor_create_surface(panel->display_info.compositor);
 
-	panel->monitor = NULL;
+	select: panel->monitor = NULL;
 	if (!panel->selected_monitor_name) {
 		panel->monitor = monitors[panel->selected_monitor];
 	} else {
@@ -561,7 +561,10 @@ void dmenu_init_panel(struct dmenu_panel *panel, int32_t height, bool bottom) {
 	}
 	if (!panel->monitor) {
 		if (!panel->selected_monitor_name)
-			eprintf("No monitor with index %i available.\n", panel->selected_monitor);
+		{
+			panel->selected_monitor = 0;
+			goto select;
+		}
 		else
 		eprintf("No monitor with name %s available.\n", panel->selected_monitor_name);
 	}
